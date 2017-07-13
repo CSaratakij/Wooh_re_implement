@@ -41,7 +41,9 @@ public class CrowdController : MonoBehaviour
 
     void Start()
     {
-        _specialCrowds[0].GetComponent<SpecialCrowd>().Blame();// REmove this..
+        foreach (GameObject obj in _specialCrowds) {
+            obj.GetComponent<SpecialCrowd>().Blame();
+        }
     }
 
 	void Update()
@@ -52,7 +54,7 @@ public class CrowdController : MonoBehaviour
     void _Initialize()
     {
         _InitCrowdHolder();
-        _RandomCrowd();
+        _GenerateCrowd();
     }
 
     void _InitCrowdHolder()
@@ -65,7 +67,7 @@ public class CrowdController : MonoBehaviour
         }
     }
 
-    void _RandomCrowd()
+    void _GenerateCrowd()
     {
         var currentPos = startPoint;
         var currentOrder = 0;
