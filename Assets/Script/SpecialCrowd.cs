@@ -11,6 +11,6 @@ public class SpecialCrowd : Crowd
 
     public void Blame()
     {
-        _renderer.sprite = sprites[3];
+        _renderer.sprite = sprites[2];
     }
 }

@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("HandUp")) {
             _renderer.sprite = _animationSprite[(int)AnimationState.Perfect];
+
         } else if (Input.GetButtonUp("HandUp")) {
             _renderer.sprite = _animationSprite[(int)AnimationState.Idle];
         }

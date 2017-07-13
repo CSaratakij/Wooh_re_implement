@@ -31,12 +31,18 @@ public class CrowdController : MonoBehaviour
 
 
     GameObject[][] _crowdObjects;
+    GameObject[] _specialCrowds;
 
 
 	void Awake()
     {
         _Initialize();
 	}
+
+    void Start()
+    {
+        _specialCrowds[0].GetComponent<SpecialCrowd>().Blame();// REmove this..
+    }
 
 	void Update()
     {
@@ -51,6 +57,7 @@ public class CrowdController : MonoBehaviour
 
     void _InitCrowdHolder()
     {
+        _specialCrowds = new GameObject[specialCrowdPos.Length];
         _crowdObjects = new GameObject[row][];
 
         for (int i = 0; i < row; i++) {
@@ -62,6 +69,7 @@ public class CrowdController : MonoBehaviour
     {
         var currentPos = startPoint;
         var currentOrder = 0;
+        var currentSpecialCrowdIndex = 0;
 
         for (int i = 0; i < row; i++) {
             for (int n = 0; n < column; n++) {
@@ -70,7 +78,9 @@ public class CrowdController : MonoBehaviour
                 var selectCrowdIndex = (int)Random.Range(0, crowds.Length);
 
                 if (specialCrowdPos.Contains(pos)) {
-                    _crowdObjects[i][n] = Instantiate(speacialCrowds[0], transform);
+                    _crowdObjects[i][n] = Instantiate(speacialCrowds[currentSpecialCrowdIndex], transform);
+                    _specialCrowds[currentSpecialCrowdIndex] = _crowdObjects[i][n];
+                    currentSpecialCrowdIndex += 1;
 
                 } else {
                     _crowdObjects[i][n] = Instantiate(crowds[selectCrowdIndex], transform);
@@ -88,7 +98,6 @@ public class CrowdController : MonoBehaviour
                 if (hideSpritePos.Contains(pos)) {
                     currentCrowd.Hide();
                 }
-
             }
 
             currentPos.x = startPoint.x;
