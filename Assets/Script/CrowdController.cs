@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CrowdController : MonoBehaviour
@@ -17,16 +18,13 @@ public class CrowdController : MonoBehaviour
     Vector2 intervalOfSeat;
 
     [SerializeField]
-    GameObject crowdObject;
-
-    [SerializeField]
     GameObject[] crowds;
 
     [SerializeField]
-    SpriteRect[] speacialSprite;
+    GameObject[] speacialCrowds;
 
     [SerializeField]
-    Vector2[] speacialSpritePos;
+    Vector2[] specialCrowdPos;
 
     [SerializeField]
     Vector2[] hideSpritePos;
@@ -44,11 +42,6 @@ public class CrowdController : MonoBehaviour
     {
         _HandleWavePattern();
 	}
-
-    void _HandleWavePattern()
-    {
-
-    }
 
     void _Initialize()
     {
@@ -73,19 +66,18 @@ public class CrowdController : MonoBehaviour
         for (int i = 0; i < row; i++) {
             for (int n = 0; n < column; n++) {
 
-                var selectSpriteIndex = (int)Random.Range(0, crowds.Length);
-                _crowdObjects[i][n] = Instantiate(crowds[selectSpriteIndex], transform);
+                var pos = new Vector2(i, n);
+                var selectCrowdIndex = (int)Random.Range(0, crowds.Length);
+
+                if (specialCrowdPos.Contains(pos)) {
+                    _crowdObjects[i][n] = Instantiate(speacialCrowds[0], transform);
+
+                } else {
+                    _crowdObjects[i][n] = Instantiate(crowds[selectCrowdIndex], transform);
+                }
 
                 var currentCrowd = _crowdObjects[i][n].GetComponent<Crowd>();
                 var currentCrowdSpriteRenderer = _crowdObjects[i][n].GetComponent<SpriteRenderer>();
-
-                //need to fix this... also..
-                //what special sprite in each pos?
-                /* foreach (Vector2 pos in speacialSpritePos) { */
-                    /* if (i == pos.x && n == pos.y) { */
-                        /* currentCrowdSpriteRects[0] = speacialSprite[0]; */
-                    /* } */
-                /* } */
 
                 currentCrowd.Idle();
 
@@ -93,16 +85,20 @@ public class CrowdController : MonoBehaviour
                 currentPos.x += intervalOfSeat.x;
                 currentCrowdSpriteRenderer.sortingOrder = currentOrder;
 
-                foreach (Vector2 pos in hideSpritePos) {
-                    if (i == pos.x && n == pos.y) {
-                        currentCrowd.Hide();
-                    }
+                if (hideSpritePos.Contains(pos)) {
+                    currentCrowd.Hide();
                 }
+
             }
 
             currentPos.x = startPoint.x;
             currentPos.y -= intervalOfSeat.y;
             currentOrder += 1;
         }
+    }
+
+    void _HandleWavePattern()
+    {
+
     }
 }

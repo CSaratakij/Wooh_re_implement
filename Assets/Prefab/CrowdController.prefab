@@ -585,8 +585,6 @@ MonoBehaviour:
   row: 5
   startPoint: {x: -9.4, y: 3.485}
   intervalOfSeat: {x: 2.367, y: 2.085}
-  crowdObject: {fileID: 1317925284267202, guid: b9e58ca386037db45a7b453e36731101,
-    type: 2}
   crowds:
   - {fileID: 1763130503160936}
   - {fileID: 1727071681683496}
@@ -596,17 +594,17 @@ MonoBehaviour:
   - {fileID: 1739323119722362}
   - {fileID: 1007946051538500}
   - {fileID: 1477623892691868}
-  speacialSprite:
-  - {fileID: 114084678000433888}
+  speacialCrowds:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  speacialSpritePos:
+  specialCrowdPos:
+  - {x: 1, y: 3}
+  - {x: 1, y: 4}
+  - {x: 1, y: 5}
   - {x: 2, y: 3}
+  - {x: 2, y: 5}
+  - {x: 3, y: 3}
+  - {x: 3, y: 4}
+  - {x: 3, y: 5}
   hideSpritePos:
   - {x: 2, y: 4}
 --- !u!114 &114178971259911316
