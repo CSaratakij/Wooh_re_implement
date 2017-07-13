@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Crowd : MonoBehaviour
 {
-    public SpriteRect[] spriteRects;
-
-
-    SpriteRenderer _renderer;
+    [SerializeField]
+    protected Sprite[] sprites;
 
 
     enum AnimationState
@@ -16,20 +14,22 @@ public class Crowd : MonoBehaviour
         HandUp
     }
 
+    protected SpriteRenderer _renderer;
+
 
     public Crowd()
     {
-        spriteRects = new SpriteRect[2];
+        sprites = new Sprite[2];
 	}
 
     public void Idle()
     {
-        _renderer.sprite = spriteRects[(int)AnimationState.Idle].Sprite;
+        _renderer.sprite = sprites[(int)AnimationState.Idle];
     }
 
     public void HandUp()
     {
-        _renderer.sprite = spriteRects[(int)AnimationState.HandUp].Sprite;
+        _renderer.sprite = sprites[(int)AnimationState.HandUp];
     }
 
     public void Hide()
