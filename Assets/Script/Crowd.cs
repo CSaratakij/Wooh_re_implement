@@ -41,7 +41,6 @@ public class Crowd : MonoBehaviour
         }
     }
 
-    //Nightmapre..
     IEnumerator _HandUpCallback(float delay)
     {
         yield return new WaitForSeconds(delay);

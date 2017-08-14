@@ -54,9 +54,7 @@ public class WaveController : MonoBehaviour
 
     void _HandleWavePattern()
     {
-        if (Input.GetKeyDown("space")) {
-            _WaveLeftToRight();
-        }
+        // Todo
     }
 
     void _WaveLeftToRight()
