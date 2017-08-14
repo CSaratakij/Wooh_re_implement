@@ -8,6 +8,28 @@ public class WaveController : MonoBehaviour
     [SerializeField]
     CrowdController crowdController;
 
+    
+    //By column or row?
+    enum WavePattern
+    {
+        None,
+        LeftToRight,
+        UpToDown,
+    }
+
+    WavePattern[] patternQueue;
+
+
+    public WaveController()
+    {
+        patternQueue = new WavePattern[100];
+    }
+
+
+    void Awake()
+    {
+        _GenerateWavePattern();
+    }
 
     void Start()
     {
@@ -23,7 +45,21 @@ public class WaveController : MonoBehaviour
         }
 	}
 
+    void _GenerateWavePattern()
+    {
+        for (int i = 0; i < patternQueue.Length; i++) {
+            //Random pattern here..
+        }
+    }
+
     void _HandleWavePattern()
+    {
+        if (Input.GetKeyDown("space")) {
+            _WaveLeftToRight();
+        }
+    }
+
+    void _WaveLeftToRight()
     {
         Debug.Log("About to wave...");
         var pos = new Vector2(0, 0);
@@ -34,12 +70,8 @@ public class WaveController : MonoBehaviour
             for (int j = 0; j < crowdController.CrowdObjects[i].Length; j++) {
                 pos.y = j;
 
-                if (crowdController.HideSpritePos.Contains(pos)) {
-                    continue;
-                }
-
                 var currentCrowd = crowdController.CrowdObjects[i][j].GetComponent<Crowd>();
-                currentCrowd.HandUp();
+                currentCrowd.HandUp(0.2f);
             }
         }
     }
