@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public static bool isGameStart = false; // <- really?
+
+
 	void Start()
     {
 		
