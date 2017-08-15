@@ -6,21 +6,23 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject mainmenuUI;
+    PlayerController player;
 
     [SerializeField]
-    GameObject gameplayUI;
+    Text txtScore;
 
     [SerializeField]
     Image imgTutorial;
 
 
-    void Awake()
-    {
-    }
-
     void Update()
     {
+        if (player && txtScore) {
+            if (GameController.isGameInit) {
+                txtScore.text = player.Score.ToString();
+            }
+        }
+
         if (imgTutorial) {
             if (GameController.isGameStart) {
                 imgTutorial.gameObject.SetActive(false);
