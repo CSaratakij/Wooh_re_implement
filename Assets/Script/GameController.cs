@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static bool isGameStart = false; // <- really?
+    public static bool isGameInit = false;
+    public static bool isGameStart = false;
 
-
-	void Start()
+    
+    public void GameInit()
     {
-		
-	}
-
-	void Update()
-    {
-		
-	}
+        GameController.isGameInit = true;
+    }
 }

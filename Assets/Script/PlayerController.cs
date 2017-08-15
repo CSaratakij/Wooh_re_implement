@@ -7,8 +7,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Sprite[] _animationSprite;
 
+    public int Score { get { return _score; } }
+    public PlayerState State { get { return _state; } }
 
-    enum AnimationState
+
+    public enum PlayerState
     {
         Idle,
         Perfect,
@@ -17,11 +20,16 @@ public class PlayerController : MonoBehaviour
         Miss
     }
 
+    int _score;
+    PlayerState _state;
+
     SpriteRenderer _renderer;
 
 
     public PlayerController()
     {
+        _score = 0;
+        _state = PlayerState.Idle;
         _animationSprite = new Sprite[5];
     }
 
@@ -32,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
     {
-        _renderer.sprite = _animationSprite[(int)AnimationState.Idle];
+        _renderer.sprite = _animationSprite[(int)PlayerState.Idle];
 	}
 	
 	void Update()
@@ -65,10 +73,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isHandUp) {
-            _renderer.sprite = _animationSprite[(int)AnimationState.Perfect];
+            _renderer.sprite = _animationSprite[(int)PlayerState.Perfect];
 
         } else if (isHandDown) {
-            _renderer.sprite = _animationSprite[(int)AnimationState.Idle];
+            _renderer.sprite = _animationSprite[(int)PlayerState.Idle];
         }
 	}
 }

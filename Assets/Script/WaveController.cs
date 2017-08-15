@@ -33,9 +33,6 @@ public class WaveController : MonoBehaviour
 
     void Start()
     {
-        if (crowdController) {
-            GameController.isGameStart = true;
-        }
     }
 
 	void Update()
