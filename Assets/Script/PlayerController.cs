@@ -45,38 +45,40 @@ public class PlayerController : MonoBehaviour
 	
 	void Update()
     {
-        var isHandUp = false;
-        var isHandDown = false;
+        if (GameController.isGameInit && !GameController.isGameOver) {
+            var isHandUp = false;
+            var isHandDown = false;
 
-        var totalTouch = Input.touchCount;
+            var totalTouch = Input.touchCount;
 
-        if (totalTouch > 0) {
-           foreach (Touch touch in Input.touches) {
-               switch (touch.phase) {
-               case TouchPhase.Began:
-                   isHandUp = true;
-                   isHandDown = false;
-                   break;
+            if (totalTouch > 0) {
+               foreach (Touch touch in Input.touches) {
+                   switch (touch.phase) {
+                   case TouchPhase.Began:
+                       isHandUp = true;
+                       isHandDown = false;
+                       break;
 
-               case TouchPhase.Ended:
-                   isHandUp = false;
-                   isHandDown = true;
-                   break;
+                   case TouchPhase.Ended:
+                       isHandUp = false;
+                       isHandDown = true;
+                       break;
 
-               default:
-                   break;
+                   default:
+                       break;
+                   }
                }
-           }
-        } else {
-            isHandUp = Input.GetButtonDown("HandUp");
-            isHandDown = Input.GetButtonUp("HandUp");
-        }
+            } else {
+                isHandUp = Input.GetButtonDown("HandUp");
+                isHandDown = Input.GetButtonUp("HandUp");
+            }
 
-        if (isHandUp) {
-            _renderer.sprite = _animationSprite[(int)PlayerState.Perfect];
+            if (isHandUp) {
+                _renderer.sprite = _animationSprite[(int)PlayerState.Perfect];
 
-        } else if (isHandDown) {
-            _renderer.sprite = _animationSprite[(int)PlayerState.Idle];
+            } else if (isHandDown) {
+                _renderer.sprite = _animationSprite[(int)PlayerState.Idle];
+            }
         }
-	}
+    }
 }
