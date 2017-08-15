@@ -51,8 +51,8 @@ public class PlayerController : MonoBehaviour
                    break;
 
                case TouchPhase.Ended:
-                   isHandUp = true;
-                   isHandDown = false;
+                   isHandUp = false;
+                   isHandDown = true;
                    break;
 
                default:
