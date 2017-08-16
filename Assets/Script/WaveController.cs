@@ -67,10 +67,9 @@ public class WaveController : MonoBehaviour
 
 	void Update()
     {
-        /* if (_isWaveEnded) { */
-        /*     _CheckScore(); */
-        /*     _isWaveEnded = false; */
-        /* } */
+        if (player.Score == 45) {
+            GameController.isGameStart = true;
+        }
 
         _HandleWavePattern();
 	}
@@ -111,9 +110,9 @@ public class WaveController : MonoBehaviour
     //Need coroutine plz
     IEnumerator _WaveUpToDown()
     {
-        Debug.Log("About to wave...UpToDown");
         var roundCount = 1;
         var posRow = 0;
+
         int[] posListCol = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 
         for (int i = 0; i < 5; i++) {
