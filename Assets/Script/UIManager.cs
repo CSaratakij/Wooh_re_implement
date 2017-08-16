@@ -14,6 +14,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Image imgTutorial;
 
+    [SerializeField]
+    WaveController waveController;
+
+    [SerializeField]
+    Text txtPerformance;
+
 
     void Update()
     {
@@ -27,6 +33,10 @@ public class UIManager : MonoBehaviour
             if (GameController.isGameStart) {
                 imgTutorial.gameObject.SetActive(false);
             }
+        }
+
+        if (waveController && txtPerformance) {
+            txtPerformance.text = waveController.Performance;
         }
     }
 }

@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public int Score { get { return _score; } }
     public PlayerState State { get { return _state; } }
+    public float WaveTime { get { return _waveTime; } }
 
 
     public enum PlayerState
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
     }
 
     int _score;
+    float _waveTime;
+
     PlayerState _state;
 
     SpriteRenderer _renderer;
@@ -29,8 +32,14 @@ public class PlayerController : MonoBehaviour
     public PlayerController()
     {
         _score = 0;
+        _waveTime = 0.0f;
         _state = PlayerState.Idle;
         _animationSprite = new Sprite[5];
+    }
+
+    public void AddScore(int value)
+    {
+        _score += value;
     }
 
 	void Awake()
@@ -68,6 +77,7 @@ public class PlayerController : MonoBehaviour
                        break;
                    }
                }
+
             } else {
                 isHandUp = Input.GetButtonDown("HandUp");
                 isHandDown = Input.GetButtonUp("HandUp");
@@ -75,9 +85,12 @@ public class PlayerController : MonoBehaviour
 
             if (isHandUp) {
                 _renderer.sprite = _animationSprite[(int)PlayerState.Perfect];
+                _waveTime = Time.timeSinceLevelLoad;
+                isHandUp = false;
 
             } else if (isHandDown) {
                 _renderer.sprite = _animationSprite[(int)PlayerState.Idle];
+                isHandDown = false;
             }
         }
     }

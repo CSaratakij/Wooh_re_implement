@@ -21,7 +21,7 @@ public class ScoreChecker : MonoBehaviour
         if (GameController.isGameInit) {
             // typical add score to player. to 15 point each..
 
-            if (player.Score > 45) {
+            if (player.Score > 45) { // Try to remote this magic number plz.
                 GameController.isGameStart = true;
             }
 
