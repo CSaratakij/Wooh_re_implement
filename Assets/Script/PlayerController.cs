@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public int Health { get { return _health; } }
     public PlayerState State { get { return _state; } }
     public float WaveTime { get { return _waveTime; } }
+    public bool IsPressedWave { get { return _isPressedWave; } }
 
 
     public enum PlayerState
@@ -26,9 +27,9 @@ public class PlayerController : MonoBehaviour
     int _health;
 
     float _waveTime;
+    bool _isPressedWave;
 
     PlayerState _state;
-
     SpriteRenderer _renderer;
 
 
@@ -93,11 +94,13 @@ public class PlayerController : MonoBehaviour
             }
 
             if (isHandUp) {
+                _isPressedWave = true;
                 _renderer.sprite = _animationSprite[(int)PlayerState.Perfect];
                 _waveTime = Time.timeSinceLevelLoad;
                 isHandUp = false;
 
             } else if (isHandDown) {
+                _isPressedWave = false;
                 _renderer.sprite = _animationSprite[(int)PlayerState.Idle];
                 isHandDown = false;
             }

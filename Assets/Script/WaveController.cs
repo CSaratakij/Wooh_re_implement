@@ -90,11 +90,6 @@ public class WaveController : MonoBehaviour
                 _handDownTime = ((_handDownTime - 0.015f) > 0.11f) ? _handDownTime - 0.015f : 0.11f;
             }
 
-            // if player is miss, don't make spcial crowd to wave
-            // maybe move this to the wave itself..
-            if (_performance == "Miss") {
-
-            }
 
         }
 
@@ -112,11 +107,20 @@ public class WaveController : MonoBehaviour
     {
         var roundCount = 1;
         var posRow = 0;
-
+        
         int[] posListCol = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 
         for (int i = 0; i < 5; i++) {
+
             for (int j = 0; j < posListCol.Length; j++) {
+
+                if (_performance == "Miss") {
+
+                    if (crowdController.SpecialCrowdPos.Contains(new Vector2(i, j))) {
+                        continue;
+                    }
+                }
+
                 var currentCrowd = crowdController.CrowdObjects[posRow][j].GetComponent<Crowd>();
                 currentCrowd.HandUp(_handDownTime);
             }
@@ -142,6 +146,7 @@ public class WaveController : MonoBehaviour
             yield return new WaitForSeconds(_nextRowTime);
         }
 
+        _performance = "";
         _isNextWavePattern = true;
     }
 
@@ -195,5 +200,11 @@ public class WaveController : MonoBehaviour
         }
 
         uiManager.ShowPerformance(_performance);
+
+        if (_performance == "Miss") {
+            foreach (GameObject obj in crowdController.SpecialCrowdObjects) {
+                obj.GetComponent<SpecialCrowd>().Blame();
+            }
+        }
     }
 }

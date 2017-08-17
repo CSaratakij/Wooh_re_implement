@@ -36,6 +36,7 @@ public class CrowdController : MonoBehaviour
 
     public GameObject[][] CrowdObjects { get { return _crowdObjects; } }
     public GameObject[] SpecialCrowdObjects { get { return _specialCrowds; } }
+    public Vector2[] SpecialCrowdPos { get { return specialCrowdPos; } }
     public Vector2[] HideSpritePos { get { return hideSpritePos; } }
 
 
