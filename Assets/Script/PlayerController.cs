@@ -63,16 +63,6 @@ public class PlayerController : MonoBehaviour
 	
 	void Update()
     {
-        if (_score == 45) {
-            GameController.isGameStart = true;
-
-        } else if (_score > 45) {
-
-            if (_health <= 0) {
-                GameController.isGameOver = true;
-            }
-        }
-        
         if (GameController.isGameInit && !GameController.isGameOver) {
             var isHandUp = false;
             var isHandDown = false;
