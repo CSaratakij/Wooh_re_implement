@@ -11,6 +11,8 @@ public class WaveController : MonoBehaviour
     [SerializeField]
     PlayerController player;
 
+    [SerializeField]
+    UIManager uiManager;
 
     public string Performance { get { return _performance; } }
 
@@ -191,5 +193,7 @@ public class WaveController : MonoBehaviour
                 player.AddScore(5);
             }
         }
+
+        uiManager.ShowPerformance(_performance);
     }
 }

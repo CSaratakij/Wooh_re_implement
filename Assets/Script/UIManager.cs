@@ -19,13 +19,16 @@ public class UIManager : MonoBehaviour
     WaveController waveController;
 
     [SerializeField]
-    Text txtPerformance;
-
-    [SerializeField]
     Sprite[] imgHealthStates;
 
     [SerializeField]
     Image[] imgHealths;
+
+    [SerializeField]
+    Image[] imgPerformanceStates;
+
+
+    Image _currentPerformanceState;
 
 
     void Update()
@@ -42,10 +45,6 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (waveController && txtPerformance) {
-            txtPerformance.text = waveController.Performance;
-        }
-
         for (int i = 0; i < imgHealths.Length; i++) {
             if (player.Health >= (i + 1)) {
                 imgHealths[i].sprite = imgHealthStates[0];
@@ -53,5 +52,43 @@ public class UIManager : MonoBehaviour
                 imgHealths[i].sprite = imgHealthStates[1];
             }
         }
+    }
+
+    public void ShowPerformance(string value)
+    {
+        switch (value) {
+
+            case "Miss":
+                _currentPerformanceState = imgPerformanceStates[0];
+            break;
+
+            case "Bad":
+                _currentPerformanceState = imgPerformanceStates[1];
+            break;
+
+            case "Good":
+                _currentPerformanceState = imgPerformanceStates[2];
+            break;
+
+            case "Perfect":
+                _currentPerformanceState = imgPerformanceStates[3];
+            break;
+
+            default:
+            break;
+        }
+
+        foreach (Image img in imgPerformanceStates) {
+            img.enabled = false;
+        }
+
+        _currentPerformanceState.enabled = true;
+        StartCoroutine("_ShowPerformanceCallBack");
+    }
+
+    IEnumerator _ShowPerformanceCallBack()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _currentPerformanceState.enabled = false;
     }
 }
