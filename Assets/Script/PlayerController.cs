@@ -65,6 +65,12 @@ public class PlayerController : MonoBehaviour
     {
         if (_score == 45) {
             GameController.isGameStart = true;
+
+        } else if (_score > 45) {
+
+            if (_health <= 0) {
+                GameController.isGameOver = true;
+            }
         }
         
         if (GameController.isGameInit && !GameController.isGameOver) {

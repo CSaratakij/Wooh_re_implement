@@ -67,7 +67,9 @@ public class WaveController : MonoBehaviour
 
 	void Update()
     {
-        _HandleWavePattern();
+        if (!GameController.isGameOver) {
+            _HandleWavePattern();
+        }
 	}
 
     void _GenerateWavePattern()
@@ -158,7 +160,10 @@ public class WaveController : MonoBehaviour
 
         if (player.WaveTime < _startTime || player.WaveTime > _endedTime) {
             _performance = "Miss";
-            player.RemoveHealth(1);
+
+            if (GameController.isGameStart) {
+                player.RemoveHealth(1);
+            }
 
         } else {
             if ((player.WaveTime > _startTime) && (player.WaveTime <= _badTime_1)) {
