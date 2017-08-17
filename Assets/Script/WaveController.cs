@@ -121,11 +121,12 @@ public class WaveController : MonoBehaviour
                 currentCrowd.HandUp(_handDownTime);
             }
 
-            _perfectTime = Time.timeSinceLevelLoad;
-            _startTime = _perfectTime - _handDownTime;
-            _endedTime = _perfectTime + _handDownTime;
-
             if (roundCount == 3) {
+
+                _perfectTime = Time.timeSinceLevelLoad;
+                _startTime = _perfectTime - _handDownTime;
+                _endedTime = _perfectTime + _handDownTime;
+
                 StartCoroutine("_CheckScore", _handDownTime);
             }
 
@@ -150,18 +151,18 @@ public class WaveController : MonoBehaviour
         Debug.Log("Checked..");
 
 
-        //change c to perfectInvertal and normalInterval after use 2.5f
-        var c = (_perfectTime - _startTime) / 3;
+        var interval = (_perfectTime - _startTime) / 3;
 
-        _badTime_1 = _startTime + c;
-        _goodTime_1 = _startTime + (c * 2);
+        _badTime_1 = _startTime + interval;
+        _goodTime_1 = _startTime + (interval * 2);
 
-        _goodTime_2 = _perfectTime + c;
-        _badTime_2 = _perfectTime + (c * 2);
+        _goodTime_2 = _endedTime - (interval * 2);
+        _badTime_2 = _endedTime - interval;
+
 
         if (player.WaveTime < _startTime || player.WaveTime > _endedTime) {
             _performance = "Miss";
-            // remote player health here..
+            player.RemoveHealth(1);
 
         } else {
             if ((player.WaveTime > _startTime) && (player.WaveTime <= _badTime_1)) {

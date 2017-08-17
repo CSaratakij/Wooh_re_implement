@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Sprite[] _animationSprite;
 
     public int Score { get { return _score; } }
+    public int Health { get { return _health; } }
     public PlayerState State { get { return _state; } }
     public float WaveTime { get { return _waveTime; } }
 
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     }
 
     int _score;
+    int _health;
+
     float _waveTime;
 
     PlayerState _state;
@@ -32,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public PlayerController()
     {
         _score = 0;
+        _health = 3;
         _waveTime = 0.0f;
         _state = PlayerState.Idle;
         _animationSprite = new Sprite[5];
@@ -40,6 +44,11 @@ public class PlayerController : MonoBehaviour
     public void AddScore(int value)
     {
         _score += value;
+    }
+
+    public void RemoveHealth(int value)
+    {
+        _health = ((_health - value) > 0) ? _health - value : 0;
     }
 
 	void Awake()

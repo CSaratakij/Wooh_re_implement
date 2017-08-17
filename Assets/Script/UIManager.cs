@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text txtPerformance;
 
+    [SerializeField]
+    Sprite[] imgHealthStates;
+
+    [SerializeField]
+    Image[] imgHealths;
+
 
     void Update()
     {
@@ -37,6 +44,14 @@ public class UIManager : MonoBehaviour
 
         if (waveController && txtPerformance) {
             txtPerformance.text = waveController.Performance;
+        }
+
+        for (int i = 0; i < imgHealths.Length; i++) {
+            if (player.Health >= (i + 1)) {
+                imgHealths[i].sprite = imgHealthStates[0];
+            } else {
+                imgHealths[i].sprite = imgHealthStates[1];
+            }
         }
     }
 }
