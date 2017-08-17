@@ -25,15 +25,11 @@ public class WavePattern : MonoBehaviour
     bool _isStart;
     bool _isEnded;
 
-    PlayerController.PlayerState _currentPlayerState;
-
     
     public int CurrentRound { get { return _currentRound; } }
     public int RoundToCalScore { get { return roundToCalScore; } }
     public bool IsStart { get { return _isStart; } }
     public bool IsEnded { get { return _isEnded; } }
-
-    public PlayerController.PlayerState CurrentPlayerState { get { return _currentPlayerState; } }
 
 
     public WavePattern()
@@ -44,7 +40,6 @@ public class WavePattern : MonoBehaviour
         _currentWaveLength = 1.0f;
         _isStart = false;
         _isEnded = false;
-        _currentPlayerState = PlayerController.PlayerState.Miss;
     }
 
     public void StartWave(GameObject[][] crowds) {

@@ -199,6 +199,8 @@ public class WaveController : MonoBehaviour
             }
         }
 
+        player.SetFailed(_performance == "Miss" || _performance == "Bad");
+
         var hideDelay = _handDownTime < 0.2f ? 0.2f : _handDownTime;
         uiManager.ShowPerformance(_performance, hideDelay);
 
@@ -206,6 +208,6 @@ public class WaveController : MonoBehaviour
             foreach (GameObject obj in crowdController.SpecialCrowdObjects) {
                 obj.GetComponent<SpecialCrowd>().Blame();
             }
-        }
+        } 
     }
 }
