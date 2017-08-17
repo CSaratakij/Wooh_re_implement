@@ -199,7 +199,8 @@ public class WaveController : MonoBehaviour
             }
         }
 
-        uiManager.ShowPerformance(_performance);
+        var hideDelay = _handDownTime < 0.2f ? 0.2f : _handDownTime;
+        uiManager.ShowPerformance(_performance, hideDelay);
 
         if (_performance == "Miss") {
             foreach (GameObject obj in crowdController.SpecialCrowdObjects) {

@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowPerformance(string value)
+    public void ShowPerformance(string value, float hideDelay)
     {
         switch (value) {
 
@@ -83,12 +83,12 @@ public class UIManager : MonoBehaviour
         }
 
         _currentPerformanceState.enabled = true;
-        StartCoroutine("_ShowPerformanceCallBack");
+        StartCoroutine("_ShowPerformanceCallBack", hideDelay);
     }
 
-    IEnumerator _ShowPerformanceCallBack()
+    IEnumerator _ShowPerformanceCallBack(float hideDelay)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(hideDelay);
         _currentPerformanceState.enabled = false;
     }
 }
