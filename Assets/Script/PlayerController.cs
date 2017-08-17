@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     public PlayerController()
     {
         _score = 0;
-        _health = 3;
+        _health = 5;
         _waveTime = 0.0f;
         _state = PlayerState.Idle;
         _animationSprite = new Sprite[5];
@@ -63,6 +63,10 @@ public class PlayerController : MonoBehaviour
 	
 	void Update()
     {
+        if (_score == 45) {
+            GameController.isGameStart = true;
+        }
+        
         if (GameController.isGameInit && !GameController.isGameOver) {
             var isHandUp = false;
             var isHandDown = false;

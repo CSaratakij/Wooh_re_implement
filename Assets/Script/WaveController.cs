@@ -67,10 +67,6 @@ public class WaveController : MonoBehaviour
 
 	void Update()
     {
-        if (player.Score == 45) {
-            GameController.isGameStart = true;
-        }
-
         _HandleWavePattern();
 	}
 
@@ -86,8 +82,8 @@ public class WaveController : MonoBehaviour
         if (GameController.isGameStart) {
 
             if (_isNextWavePattern) {
-                _nextRowTime = ((_nextRowTime - 0.015f)> 0.1f) ? _nextRowTime - 0.015f : 0.1f;
-                _handDownTime = ((_handDownTime - 0.015f) > 0.1f) ? _handDownTime - 0.015f : 0.1f;
+                _nextRowTime = ((_nextRowTime - 0.015f)> 0.11f) ? _nextRowTime - 0.015f : 0.11f;
+                _handDownTime = ((_handDownTime - 0.015f) > 0.11f) ? _handDownTime - 0.015f : 0.11f;
             }
 
             // if player is miss, don't make spcial crowd to wave
@@ -151,7 +147,7 @@ public class WaveController : MonoBehaviour
         Debug.Log("Checked..");
 
 
-        var interval = (_perfectTime - _startTime) / 3;
+        var interval = (float)((_perfectTime - _startTime) / 2.5);
 
         _badTime_1 = _startTime + interval;
         _goodTime_1 = _startTime + (interval * 2);
