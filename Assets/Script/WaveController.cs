@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
+    const int MAX_WAVE_PATTERN = 2;
+
+
     [SerializeField]
     CrowdController crowdController;
 
@@ -45,12 +48,12 @@ public class WaveController : MonoBehaviour
 
     public WaveController()
     {
-        _patternQueueIndex = new int[100];
+        _patternQueueIndex = new int[50];
         _currentWavePatternIndex = 0;
         _isNextWavePattern = false;
         _isWaveEnded = false;
-        _nextRowTime = 0.6f;
-        _handDownTime = 0.5f;
+        _nextRowTime = 0.5f;
+        _handDownTime = 0.4f;
         _startTime = 0.0f;
         _badTime_1 = 0.0f;
         _goodTime_1 = 0.0f;
@@ -81,7 +84,9 @@ public class WaveController : MonoBehaviour
     void _GenerateWavePattern()
     {
         for (int i = 0; i < _patternQueueIndex.Length; i++) {
-            //Random pattern index here..
+            var randNum = Random.Range(0.0f, 1.0f);
+            var result = (randNum < 0.6f) ? 1 : 2;
+            _patternQueueIndex[i] = result;
         }
     }
 
@@ -89,24 +94,38 @@ public class WaveController : MonoBehaviour
     {
         if (_gameController.IsGameStart) {
             if (_isNextWavePattern) {
-                _nextRowTime = ((_nextRowTime - 0.015f)> 0.11f) ? _nextRowTime - 0.015f : 0.11f;
-                _handDownTime = ((_handDownTime - 0.015f) > 0.11f) ? _handDownTime - 0.015f : 0.11f;
+                _nextRowTime = ((_nextRowTime - 0.015f)> 0.18f) ? _nextRowTime - 0.015f : 0.18f;
+                _handDownTime = ((_handDownTime - 0.015f) > 0.08f) ? _handDownTime - 0.015f : 0.08f;
             }
         }
 
-        // Start wave the character here...
         if (_gameController.IsGameInit) {
             if (_isNextWavePattern) {
+                switch (_patternQueueIndex[_currentWavePatternIndex]) {
+                    case 1:
+                        StartCoroutine("_WaveUpToDown");
+                    break;
 
-                //Start wave pattern depens on ramdom list of wave pattern list here..
-                StartCoroutine("_WaveUpToDown");
-                /* StartCoroutine("_WaveLeftToRight"); */
+                    case 2:
+                        StartCoroutine("_WaveLeftToRight");
+                    break;
+
+                    default:
+                        StartCoroutine("_WaveUpToDown");
+                    break;
+                }
+
+                if ((_currentWavePatternIndex + 1) > (_patternQueueIndex.Length - 1)) {
+                    _currentWavePatternIndex = 0;
+                } else {
+                    _currentWavePatternIndex++;
+                }
+
                 _isNextWavePattern = false;
             }
         }
     }
 
-    //Need coroutine plz
     IEnumerator _WaveUpToDown()
     {
         var roundCount = 1;
