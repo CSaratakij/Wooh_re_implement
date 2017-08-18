@@ -46,7 +46,10 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         if (gameOverPanel) {
-            gameOverPanel.SetActive(_gameController.IsGameInit && _gameController.IsGameStart && _gameController.IsGameOver);
+            if (_gameController.IsGameInit && _gameController.IsGameStart && _gameController.IsGameOver) {
+                gameOverPanel.SetActive(true);
+                _gameController.Reset();
+            }
         }
 
         if (player && txtScore) {

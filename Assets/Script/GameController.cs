@@ -42,6 +42,13 @@ public class GameController : MonoBehaviour
         _isGameOver = true;
     }
 
+    public void Reset()
+    {
+        _isGameInit = false;
+        _isGameStart = false;
+        _isGameOver = true;
+    }
+
     public void SaveScore()
     {
         //save to leaderboard here (player pref..)
@@ -49,7 +56,7 @@ public class GameController : MonoBehaviour
 
     public void Restart()
     {
-        _Reset();
+        Reset();
         StartCoroutine("_RestartCallBack");
     }
 
@@ -63,13 +70,6 @@ public class GameController : MonoBehaviour
                 GameOver();
             }
         }
-    }
-
-    void _Reset()
-    {
-        _isGameInit = false;
-        _isGameStart = false;
-        _isGameOver = true;
     }
 
     IEnumerator _RestartCallBack()
