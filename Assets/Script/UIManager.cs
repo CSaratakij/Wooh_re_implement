@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
         if (gameOverPanel) {
             if (_gameController.IsGameInit && _gameController.IsGameStart && _gameController.IsGameOver) {
                 gameOverPanel.SetActive(true);
-                _gameController.Reset();
             }
         }
 
