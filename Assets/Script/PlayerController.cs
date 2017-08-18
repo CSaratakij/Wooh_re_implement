@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Sprite[] _animationSprite;
 
+    [SerializeField]
+    GameController _gameController;
+
     public int Score { get { return _score; } }
     public int Health { get { return _health; } }
     public PlayerState State { get { return _state; } }
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
 	
 	void Update()
     {
-        if (GameController.isGameInit && !GameController.isGameOver) {
+        if (_gameController.IsGameInit && !_gameController.IsGameOver) {
             var isHandUp = false;
             var isHandDown = false;
 

@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 21300004, guid: ce8d0db00e649cb449ae323493b364b1, type: 3}
   - {fileID: 21300012, guid: ce8d0db00e649cb449ae323493b364b1, type: 3}
   - {fileID: 21300008, guid: ce8d0db00e649cb449ae323493b364b1, type: 3}
+  _gameController: {fileID: 0}
 --- !u!212 &212233283377518126
 SpriteRenderer:
   m_ObjectHideFlags: 1

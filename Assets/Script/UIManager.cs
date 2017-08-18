@@ -30,24 +30,27 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject gameOverPanel;
 
+    [SerializeField]
+    GameController _gameController;
+
 
     Image _currentPerformanceState;
 
 
     void Update()
     {
-        if (GameController.isGameStart && GameController.isGameOver) {
-            gameOverPanel.SetActive(true);
+        if (gameOverPanel) {
+            gameOverPanel.SetActive(_gameController.IsGameInit && _gameController.IsGameStart && _gameController.IsGameOver);
         }
 
         if (player && txtScore) {
-            if (GameController.isGameInit) {
+            if (_gameController.IsGameInit) {
                 txtScore.text = player.Score.ToString();
             }
         }
 
         if (imgTutorial) {
-            if (GameController.isGameStart) {
+            if (_gameController.IsGameStart) {
                 imgTutorial.gameObject.SetActive(false);
             }
         }

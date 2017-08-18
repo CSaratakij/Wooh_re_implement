@@ -222,6 +222,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1922182646}
+    - target: {fileID: 114489195171363818, guid: 0626402eeb4c6ea4ca4033309a757273,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1922182646}
+    - target: {fileID: 114489195171363818, guid: 0626402eeb4c6ea4ca4033309a757273,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1922182646}
     - target: {fileID: 114305507583458912, guid: 0626402eeb4c6ea4ca4033309a757273,
         type: 2}
       propertyPath: player
@@ -232,6 +242,11 @@ Prefab:
       propertyPath: waveController
       value: 
       objectReference: {fileID: 1781829965}
+    - target: {fileID: 114305507583458912, guid: 0626402eeb4c6ea4ca4033309a757273,
+        type: 2}
+      propertyPath: _gameController
+      value: 
+      objectReference: {fileID: 1922182646}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0626402eeb4c6ea4ca4033309a757273, type: 2}
   m_IsPrefabParent: 0
@@ -477,6 +492,7 @@ MonoBehaviour:
   crowdController: {fileID: 114654072}
   player: {fileID: 366814174}
   uiManager: {fileID: 1462424823}
+  _gameController: {fileID: 1922182646}
 --- !u!1001 &1800593809
 Prefab:
   m_ObjectHideFlags: 0
@@ -599,6 +615,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114728981375745660, guid: 70e72d527a99c6d4e8f3569abf1a4775,
+        type: 2}
+      propertyPath: _gameController
+      value: 
+      objectReference: {fileID: 1922182646}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70e72d527a99c6d4e8f3569abf1a4775, type: 2}
   m_IsPrefabParent: 0

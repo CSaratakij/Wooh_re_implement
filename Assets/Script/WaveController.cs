@@ -14,6 +14,10 @@ public class WaveController : MonoBehaviour
     [SerializeField]
     UIManager uiManager;
 
+    [SerializeField]
+    GameController _gameController;
+
+
     public string Performance { get { return _performance; } }
 
 
@@ -69,7 +73,7 @@ public class WaveController : MonoBehaviour
 
 	void Update()
     {
-        if (!GameController.isGameOver) {
+        if (!_gameController.IsGameOver) {
             _HandleWavePattern();
         }
 	}
@@ -83,7 +87,7 @@ public class WaveController : MonoBehaviour
 
     void _HandleWavePattern()
     {
-        if (GameController.isGameStart) {
+        if (_gameController.IsGameStart) {
             if (_isNextWavePattern) {
                 _nextRowTime = ((_nextRowTime - 0.015f)> 0.11f) ? _nextRowTime - 0.015f : 0.11f;
                 _handDownTime = ((_handDownTime - 0.015f) > 0.11f) ? _handDownTime - 0.015f : 0.11f;
@@ -91,12 +95,12 @@ public class WaveController : MonoBehaviour
         }
 
         // Start wave the character here...
-        if (GameController.isGameInit) {
+        if (_gameController.IsGameInit) {
             if (_isNextWavePattern) {
 
                 //Start wave pattern depens on ramdom list of wave pattern list here..
-                /* StartCoroutine("_WaveUpToDown"); */
-                StartCoroutine("_WaveLeftToRight");
+                StartCoroutine("_WaveUpToDown");
+                /* StartCoroutine("_WaveLeftToRight"); */
                 _isNextWavePattern = false;
             }
         }
@@ -208,7 +212,7 @@ public class WaveController : MonoBehaviour
         if (player.WaveTime < _startTime || player.WaveTime > _endedTime) {
             _performance = "Miss";
 
-            if (GameController.isGameStart) {
+            if (_gameController.IsGameStart) {
                 player.RemoveHealth(1);
             }
 
