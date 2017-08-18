@@ -41,9 +41,9 @@ public class WaveController : MonoBehaviour
     float _endedTime;
 
     string _performance;
+    /* string _previousPerformance; */
 
     bool _isNextWavePattern;
-    bool _isWaveEnded;
 
 
     public WaveController()
@@ -51,7 +51,6 @@ public class WaveController : MonoBehaviour
         _patternQueueIndex = new int[50];
         _currentWavePatternIndex = 0;
         _isNextWavePattern = false;
-        _isWaveEnded = false;
         _nextRowTime = 0.5f;
         _handDownTime = 0.4f;
         _startTime = 0.0f;
@@ -61,6 +60,8 @@ public class WaveController : MonoBehaviour
         _badTime_2 = 0.0f;
         _goodTime_2 = 0.0f;
         _endedTime = 0.0f;
+        _performance = "";
+        /* _previousPerformance = ""; */
     }
 
 
@@ -100,6 +101,13 @@ public class WaveController : MonoBehaviour
         }
 
         if (_gameController.IsGameInit) {
+            
+            var isNotPerfect = _performance == "Miss" || _performance == "Bad" || _performance == "Good";
+
+            if (isNotPerfect) {
+                player.ClearPerfectStack();
+            }
+
             if (_isNextWavePattern) {
                 switch (_patternQueueIndex[_currentWavePatternIndex]) {
                     case 1:
@@ -213,12 +221,10 @@ public class WaveController : MonoBehaviour
         _performance = "";
         _isNextWavePattern = true;
     }
+
     IEnumerator _CheckScore(float delayCheck)
     {
         yield return new WaitForSeconds(delayCheck);
-        Debug.Log("Checked..");
-
-
         var interval = (float)((_perfectTime - _startTime) / 2.5);
 
         _badTime_1 = _startTime + interval;
@@ -227,9 +233,9 @@ public class WaveController : MonoBehaviour
         _goodTime_2 = _endedTime - (interval * 2);
         _badTime_2 = _endedTime - interval;
 
-
         if (player.WaveTime < _startTime || player.WaveTime > _endedTime) {
             _performance = "Miss";
+            player.ClearPerfectStack();
 
             if (_gameController.IsGameStart) {
                 player.RemoveHealth(1);
@@ -239,33 +245,44 @@ public class WaveController : MonoBehaviour
             if ((player.WaveTime > _startTime) && (player.WaveTime <= _badTime_1)) {
                 _performance = "Bad";
                 player.AddScore(5);
+                player.ClearPerfectStack();
 
             } else if ((player.WaveTime > _badTime_1) && (player.WaveTime <= _goodTime_1)) {
                 _performance = "Good";
                 player.AddScore(10);
+                player.ClearPerfectStack();
 
             } else if ((player.WaveTime > _goodTime_1) && (player.WaveTime <= _perfectTime)) {
                 _performance = "Perfect";
-                player.AddScore(15);
+                player.AddPerfectStack(1);
+
+                var score = (player.PerfectStack > 1) ? player.PerfectStack * 15 : 15;
+                player.AddScore(score);
 
             } else if ((player.WaveTime > _perfectTime) && (player.WaveTime <= _goodTime_2)) {
                 _performance = "Perfect";
-                player.AddScore(15);
+                player.AddPerfectStack(1);
+
+                var score = (player.PerfectStack > 1) ? player.PerfectStack * 15 : 15;
+                player.AddScore(score);
 
             } else if ((player.WaveTime > _goodTime_2) && (player.WaveTime <= _badTime_2)) {
                 _performance = "Good";
                 player.AddScore(10);
+                player.ClearPerfectStack();
 
             } else if ((player.WaveTime > _badTime_2) && (player.WaveTime <= _endedTime)) {
                 _performance = "Bad";
                 player.AddScore(5);
+                player.ClearPerfectStack();
             }
         }
 
-        player.SetFailed(_performance == "Miss" || _performance == "Bad");
+        var isFailed = _performance == "Miss" || _performance == "Bad";
+        player.SetFailed(isFailed);
 
         var hideDelay = _handDownTime < 0.2f ? 0.2f : _handDownTime;
-        uiManager.ShowPerformance(_performance, hideDelay);
+        uiManager.ShowPerformance(_performance,  hideDelay);
 
         if (_performance == "Miss") {
             foreach (GameObject obj in crowdController.SpecialCrowdObjects) {

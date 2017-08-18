@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator _RestartCallBack()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text txtResultScore;
 
+    [SerializeField]
+    Text txtPerfectStack;
+
 
     Image _currentPerformanceState;
 
@@ -70,26 +73,34 @@ public class UIManager : MonoBehaviour
             var resultText = "Score: ";
             txtResultScore.text = resultText + txtScore.text;
         }
+
     }
 
-    public void ShowPerformance(string value, float hideDelay)
+    public void ShowPerformance(string performance, float hideDelay)
     {
-        switch (value) {
+        switch (performance) {
 
             case "Miss":
                 _currentPerformanceState = imgPerformanceStates[0];
+                txtPerfectStack.text = "";
+
             break;
 
             case "Bad":
                 _currentPerformanceState = imgPerformanceStates[1];
+                txtPerfectStack.text = "";
+
             break;
 
             case "Good":
                 _currentPerformanceState = imgPerformanceStates[2];
+                txtPerfectStack.text = "";
             break;
 
             case "Perfect":
                 _currentPerformanceState = imgPerformanceStates[3];
+                txtPerfectStack.text = "(x " + player.PerfectStack + ")";
+
             break;
 
             default:
@@ -100,6 +111,10 @@ public class UIManager : MonoBehaviour
             img.enabled = false;
         }
 
+        if (player.PerfectStack > 1) {
+            txtPerfectStack.gameObject.SetActive(true);
+        }
+
         _currentPerformanceState.enabled = true;
         StartCoroutine("_ShowPerformanceCallBack", hideDelay);
     }
@@ -108,5 +123,6 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(hideDelay);
         _currentPerformanceState.enabled = false;
+        txtPerfectStack.gameObject.SetActive(false);
     }
 }

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     GameController _gameController;
 
     public int Score { get { return _score; } }
+    public int PerfectStack { get { return _perfectStatck; } }
     public int Health { get { return _health; } }
     public PlayerState State { get { return _state; } }
     public float WaveTime { get { return _waveTime; } }
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     }
 
     int _score;
+    int _perfectStatck;
     int _health;
 
     float _waveTime;
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public PlayerController()
     {
         _score = 0;
+        _perfectStatck = 0;
         _health = 5;
         _waveTime = 0.0f;
         _state = PlayerState.Idle_Normal;
@@ -64,9 +67,19 @@ public class PlayerController : MonoBehaviour
         _score += value;
     }
 
+    public void AddPerfectStack(int value)
+    {
+        _perfectStatck += value;
+    }
+
     public void RemoveHealth(int value)
     {
         _health = ((_health - value) > 0) ? _health - value : 0;
+    }
+
+    public void ClearPerfectStack()
+    {
+        _perfectStatck = 0;
     }
 
     public void SetFailed(bool value)
