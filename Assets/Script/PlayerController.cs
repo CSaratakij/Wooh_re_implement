@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     Sprite[] _currentAnimationSprite;
 
+    AudioSource _audioSource;
+
 
     public PlayerController()
     {
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
 	void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
 	}
 
 	void Start()
@@ -152,6 +155,11 @@ public class PlayerController : MonoBehaviour
             if (isHandUp) {
                 _isPressedWave = true;
                 _waveTime = Time.timeSinceLevelLoad;
+
+                if (!_audioSource.isPlaying) {
+                    _audioSource.Play();
+                }
+
                 isHandUp = false;
 
             } else if (isHandDown) {
