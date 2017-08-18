@@ -10,11 +10,16 @@ public class SaveManager : MonoBehaviour
     public const string NAME_KEY_PREFIX = "LEADERBOARD_NAME_";
 
 
+    public bool IsSavedScore { get { return _isSavedScore; } }
+
+
     string[] _scoreKeys;
     string[] _nameKeys;
 
     int[] _loadedScore;
     string[] _loadedName;
+
+    bool _isSavedScore;
 
 
     public SaveManager()
@@ -23,49 +28,17 @@ public class SaveManager : MonoBehaviour
         _nameKeys = new string[MAX_LEADERBOARD];
         _loadedScore = new int[MAX_LEADERBOARD];
         _loadedName = new string[MAX_LEADERBOARD];
+        _isSavedScore = false;
     }
 
     public void UpdateLeaderboard(string name, int score)
     {
-        LoadSavedLeaderboard();
-
-        if (score > _loadedScore[_loadedScore.Length - 1]) {
-
-            var newScores = new int[MAX_LEADERBOARD];
-            var newNames = new string[MAX_LEADERBOARD];
-
-            var isUpdatedScore = false;
-
-            for (int i = 0; i < MAX_LEADERBOARD; i++) {
-
-                if (isUpdatedScore) {
-                    break;
-
-                } else {
-                    if (score < _loadedScore[i]) {
-                        newScores[i] = _loadedScore[i];
-                        newNames[i] = _loadedName[i];
-
-                    } else if (score >= _loadedScore[i]) {
-
-                        newScores[i] = score;
-                        newNames[i] = name;
-
-                        for (int j = i + 1; j < _loadedScore.Length; j++) {
-                            newScores[j] = _loadedScore[j];
-                            newNames[j] = _loadedName[j];
-                        }
-
-                        _loadedScore = newScores;
-                        _loadedName = newNames;
-
-                        isUpdatedScore = true;
-                    }
-                }
-            }
+        if (!_isSavedScore) {
+            LoadSavedLeaderboard();
+            _ReArrangeBoard(name, score);
+            _SaveLeaderboard();
+            _isSavedScore = true;
         }
-
-        _SaveLeaderboard();
     }
 
     void Awake()
@@ -105,6 +78,63 @@ public class SaveManager : MonoBehaviour
                 _loadedName[i] = PlayerPrefs.GetString(targetName);
             }
         }
+    }
+
+    void _ReArrangeBoard(string name, int score)
+    {
+        var isUpdatedScore = false;
+
+        for (int i = 0; i < MAX_LEADERBOARD; i++) {
+            if (isUpdatedScore) {
+                break;
+
+            } else {
+                if (score > _loadedScore[i]) {
+                    for (int j = MAX_LEADERBOARD - 1; j > (i + 1); j--) {
+                        _loadedScore[j] = _loadedScore[j - 1];
+                        _loadedName[j] = _loadedName[j - 1];
+                    }
+                    _loadedScore[i] = score;
+                    _loadedName[i] = name;
+                    isUpdatedScore = true;
+                }
+            }
+        }
+        /* if (score > _loadedScore[_loadedScore.Length - 1]) { */
+
+        /*     var newScores = new int[MAX_LEADERBOARD]; */
+        /*     var newNames = new string[MAX_LEADERBOARD]; */
+
+        /*     var isUpdatedScore = false; */
+
+        /*     for (int i = 0; i < MAX_LEADERBOARD; i++) { */
+
+        /*         if (isUpdatedScore) { */
+        /*             break; */
+
+        /*         } else { */
+        /*             if (score < _loadedScore[i]) { */
+        /*                 newScores[i] = _loadedScore[i]; */
+        /*                 newNames[i] = _loadedName[i]; */
+
+        /*             } else if (score >= _loadedScore[i]) { */
+
+        /*                 newScores[i] = score; */
+        /*                 newNames[i] = name; */
+
+        /*                 for (int j = i + 1; j < _loadedScore.Length; j++) { */
+        /*                     newScores[j] = _loadedScore[j]; */
+        /*                     newNames[j] = _loadedName[j]; */
+        /*                 } */
+
+        /*                 _loadedScore = newScores; */
+        /*                 _loadedName = newNames; */
+
+        /*                 isUpdatedScore = true; */
+        /*             } */
+        /*         } */
+        /*     } */
+        /* } */
     }
 
     void _SaveLeaderboard()

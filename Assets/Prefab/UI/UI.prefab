@@ -2325,6 +2325,9 @@ MonoBehaviour:
   pausePanel: {fileID: 1469987299325292}
   txtLeaderboardParent: {fileID: 1416405428697352}
   saveManager: {fileID: 0}
+  txtPlayerName: {fileID: 114634330987066770}
+  btnRestart: {fileID: 114489195171363818}
+  btnLeaderboardInGameOverUI: {fileID: 114314439693306878}
 --- !u!114 &114314439693306878
 MonoBehaviour:
   m_ObjectHideFlags: 1

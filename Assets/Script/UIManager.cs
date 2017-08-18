@@ -47,6 +47,15 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     SaveManager saveManager;
+
+    [SerializeField]
+    Text txtPlayerName;
+
+    [SerializeField]
+    Button btnRestart;
+
+    [SerializeField]
+    Button btnLeaderboardInGameOverUI;
     
 
     Image _currentPerformanceState;
@@ -97,6 +106,13 @@ public class UIManager : MonoBehaviour
 
         if (_gameController.IsGameStart && _gameController.IsGameOver) {
             UpdateLeaderBoard();
+        }
+
+        if (_gameController.IsGameStart && _gameController.IsGameOver) {
+            if (txtPlayerName && btnRestart && btnLeaderboardInGameOverUI) {
+                btnRestart.enabled = txtPlayerName.text != "";
+                btnLeaderboardInGameOverUI.enabled = txtPlayerName.text != "";
+            }
         }
     }
 
