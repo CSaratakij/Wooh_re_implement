@@ -42,9 +42,21 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject pausePanel;
 
+    [SerializeField]
+    GameObject txtLeaderboardParent;
+
+    [SerializeField]
+    SaveManager saveManager;
+    
 
     Image _currentPerformanceState;
+    Text[] _txtLeaderboards;
 
+
+    void Start()
+    {
+        UpdateLeaderBoard();
+    }
 
     void Update()
     {
@@ -81,6 +93,28 @@ public class UIManager : MonoBehaviour
 
         if (pausePanel && _gameController.IsGamePause) {
             pausePanel.SetActive(true);
+        }
+
+        if (_gameController.IsGameStart && _gameController.IsGameOver) {
+            UpdateLeaderBoard();
+        }
+    }
+
+
+    public void UpdateLeaderBoard()
+    {
+        if (saveManager && txtLeaderboardParent) {
+            if (_txtLeaderboards == null) {
+                _txtLeaderboards = txtLeaderboardParent.gameObject.GetComponentsInChildren<Text>();
+                
+            } else {
+                for (int i = 0; i < _txtLeaderboards.Length; i++) {
+                    var scoreText = (PlayerPrefs.GetInt(SaveManager.SCORE_KEY_PREFIX + i.ToString())).ToString();
+                    var playerText = (PlayerPrefs.GetString(SaveManager.NAME_KEY_PREFIX + i));
+
+                    _txtLeaderboards[i].text = "NAME: " + playerText + "    " + "Score: " + scoreText;
+                }
+            }
         }
     }
 

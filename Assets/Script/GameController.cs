@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField]
     PlayerController player;
+
+    [SerializeField]
+    SaveManager saveManager;
+
+    [SerializeField]
+    Text txtPlayerName;
 
 
     public bool IsGameInit { get { return _isGameInit; } }
@@ -54,7 +61,10 @@ public class GameController : MonoBehaviour
 
     public void SaveScore()
     {
-        //save to leaderboard here (player pref..)
+        if (txtPlayerName) {
+            var playerName = (txtPlayerName.text == "") ? "Anonymous" : txtPlayerName.text;
+            saveManager.UpdateLeaderboard(playerName, player.Score);
+        }
     }
 
     public void Restart()
