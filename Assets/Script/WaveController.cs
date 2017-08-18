@@ -84,19 +84,19 @@ public class WaveController : MonoBehaviour
     void _HandleWavePattern()
     {
         if (GameController.isGameStart) {
-
             if (_isNextWavePattern) {
                 _nextRowTime = ((_nextRowTime - 0.015f)> 0.11f) ? _nextRowTime - 0.015f : 0.11f;
                 _handDownTime = ((_handDownTime - 0.015f) > 0.11f) ? _handDownTime - 0.015f : 0.11f;
             }
-
-
         }
 
         // Start wave the character here...
         if (GameController.isGameInit) {
             if (_isNextWavePattern) {
-                StartCoroutine("_WaveUpToDown");
+
+                //Start wave pattern depens on ramdom list of wave pattern list here..
+                /* StartCoroutine("_WaveUpToDown"); */
+                StartCoroutine("_WaveLeftToRight");
                 _isNextWavePattern = false;
             }
         }
@@ -150,6 +150,46 @@ public class WaveController : MonoBehaviour
         _isNextWavePattern = true;
     }
 
+    IEnumerator _WaveLeftToRight()
+    {
+        var roundCount = 1;
+        var posCol = 0;
+        
+        int[] posListRow = { 0, 1, 2, 3, 4 };
+
+        for (int i = 0; i < 9; i++) {
+
+            for (int j = 0; j < posListRow.Length; j++) {
+
+                if (_performance == "Miss") {
+
+                    if (crowdController.SpecialCrowdPos.Contains(new Vector2(j, i))) {
+                        continue;
+                    }
+                }
+
+                var currentCrowd = crowdController.CrowdObjects[j][i].GetComponent<Crowd>();
+                currentCrowd.HandUp(_handDownTime);
+            }
+
+            if (roundCount == 5) {
+
+                _perfectTime = Time.timeSinceLevelLoad;
+                _startTime = _perfectTime - _handDownTime;
+                _endedTime = _perfectTime + _handDownTime;
+
+                StartCoroutine("_CheckScore", _handDownTime);
+            }
+
+            roundCount++;
+            posCol++;
+
+            yield return new WaitForSeconds(_nextRowTime);
+        }
+
+        _performance = "";
+        _isNextWavePattern = true;
+    }
     IEnumerator _CheckScore(float delayCheck)
     {
         yield return new WaitForSeconds(delayCheck);
