@@ -27,12 +27,19 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Image[] imgPerformanceStates;
 
+    [SerializeField]
+    GameObject gameOverPanel;
+
 
     Image _currentPerformanceState;
 
 
     void Update()
     {
+        if (GameController.isGameStart && GameController.isGameOver) {
+            gameOverPanel.SetActive(true);
+        }
+
         if (player && txtScore) {
             if (GameController.isGameInit) {
                 txtScore.text = player.Score.ToString();
