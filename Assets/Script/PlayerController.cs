@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 	
 	void Update()
     {
-        if (_gameController.IsGameInit && !_gameController.IsGameOver) {
+        if (_gameController.IsGameInit && !_gameController.IsGameOver && !_gameController.IsGamePause) {
             var isHandUp = false;
             var isHandDown = false;
 

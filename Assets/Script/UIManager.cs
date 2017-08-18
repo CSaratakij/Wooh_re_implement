@@ -39,6 +39,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text txtPerfectStack;
 
+    [SerializeField]
+    GameObject pausePanel;
+
 
     Image _currentPerformanceState;
 
@@ -76,6 +79,9 @@ public class UIManager : MonoBehaviour
             txtResultScore.text = resultText + txtScore.text;
         }
 
+        if (pausePanel && _gameController.IsGamePause) {
+            pausePanel.SetActive(true);
+        }
     }
 
     public void ShowPerformance(string performance, float hideDelay)

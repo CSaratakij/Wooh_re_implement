@@ -12,11 +12,13 @@ public class GameController : MonoBehaviour
     public bool IsGameInit { get { return _isGameInit; } }
     public bool IsGameStart { get { return _isGameStart; } }
     public bool IsGameOver { get { return _isGameOver; } }
+    public bool IsGamePause { get { return _isGamePause; } }
 
 
-    bool _isGameInit = false;
-    bool _isGameStart = false;
-    bool _isGameOver = true;
+    bool _isGameInit;
+    bool _isGameStart;
+    bool _isGameOver;
+    bool _isGamePause;
 
     
     public GameController()
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
         _isGameInit = false;
         _isGameStart = false;
         _isGameOver = true;
+        _isGamePause = false;
     }
     
     public void GameInit()
@@ -58,6 +61,12 @@ public class GameController : MonoBehaviour
     {
         Reset();
         StartCoroutine("_RestartCallBack");
+    }
+
+    public void TogglePause()
+    {
+        Time.timeScale = (Time.timeScale > 0.0f) ? 0.0f : 1.0f;
+        _isGamePause = (Time.timeScale == 0.0f) ? true : false;
     }
 
 
