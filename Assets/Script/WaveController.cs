@@ -20,6 +20,9 @@ public class WaveController : MonoBehaviour
     [SerializeField]
     GameController _gameController;
 
+    [SerializeField]
+    SoundManager soundManager;
+
 
     public string Performance { get { return _performance; } }
 
@@ -41,8 +44,6 @@ public class WaveController : MonoBehaviour
     float _endedTime;
 
     string _performance;
-    /* string _previousPerformance; */
-
     bool _isNextWavePattern;
 
 
@@ -61,7 +62,6 @@ public class WaveController : MonoBehaviour
         _goodTime_2 = 0.0f;
         _endedTime = 0.0f;
         _performance = "";
-        /* _previousPerformance = ""; */
     }
 
 
@@ -283,6 +283,8 @@ public class WaveController : MonoBehaviour
 
         var hideDelay = _handDownTime < 0.2f ? 0.2f : _handDownTime;
         uiManager.ShowPerformance(_performance,  hideDelay);
+
+        soundManager.Play(_performance);
 
         if (_performance == "Miss") {
             foreach (GameObject obj in crowdController.SpecialCrowdObjects) {
