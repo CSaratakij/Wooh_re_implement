@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameController _gameController;
 
+    [SerializeField]
+    Text txtResultScore;
+
 
     Image _currentPerformanceState;
 
@@ -61,6 +64,11 @@ public class UIManager : MonoBehaviour
             } else {
                 imgHealths[i].sprite = imgHealthStates[1];
             }
+        }
+
+        if (_gameController.IsGameStart && _gameController.IsGameOver) {
+            var resultText = "Score: ";
+            txtResultScore.text = resultText + txtScore.text;
         }
     }
 

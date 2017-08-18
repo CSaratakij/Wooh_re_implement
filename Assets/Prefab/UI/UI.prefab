@@ -1285,6 +1285,7 @@ MonoBehaviour:
   - {fileID: 114948378824172792}
   gameOverPanel: {fileID: 1311306995057066}
   _gameController: {fileID: 0}
+  txtResultScore: {fileID: 114200740176770258}
 --- !u!114 &114314439693306878
 MonoBehaviour:
   m_ObjectHideFlags: 1
