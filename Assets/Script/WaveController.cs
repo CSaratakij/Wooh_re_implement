@@ -95,8 +95,8 @@ public class WaveController : MonoBehaviour
     {
         if (_gameController.IsGameStart) {
             if (_isNextWavePattern) {
-                _nextRowTime = ((_nextRowTime - 0.015f)> 0.18f) ? _nextRowTime - 0.015f : 0.18f;
-                _handDownTime = ((_handDownTime - 0.015f) > 0.08f) ? _handDownTime - 0.015f : 0.08f;
+                _nextRowTime = ((_nextRowTime - 0.015f)> 0.15f) ? _nextRowTime - 0.015f : 0.15f;
+                _handDownTime = ((_handDownTime - 0.015f) > 0.05f) ? _handDownTime - 0.015f : 0.05f;
             }
         }
 
