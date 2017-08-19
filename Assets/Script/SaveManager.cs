@@ -90,7 +90,7 @@ public class SaveManager : MonoBehaviour
 
             } else {
                 if (score > _loadedScore[i]) {
-                    for (int j = MAX_LEADERBOARD - 1; j > (i + 1); j--) {
+                    for (int j = MAX_LEADERBOARD - 1; j > i; j--) {
                         _loadedScore[j] = _loadedScore[j - 1];
                         _loadedName[j] = _loadedName[j - 1];
                     }
@@ -100,41 +100,6 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-        /* if (score > _loadedScore[_loadedScore.Length - 1]) { */
-
-        /*     var newScores = new int[MAX_LEADERBOARD]; */
-        /*     var newNames = new string[MAX_LEADERBOARD]; */
-
-        /*     var isUpdatedScore = false; */
-
-        /*     for (int i = 0; i < MAX_LEADERBOARD; i++) { */
-
-        /*         if (isUpdatedScore) { */
-        /*             break; */
-
-        /*         } else { */
-        /*             if (score < _loadedScore[i]) { */
-        /*                 newScores[i] = _loadedScore[i]; */
-        /*                 newNames[i] = _loadedName[i]; */
-
-        /*             } else if (score >= _loadedScore[i]) { */
-
-        /*                 newScores[i] = score; */
-        /*                 newNames[i] = name; */
-
-        /*                 for (int j = i + 1; j < _loadedScore.Length; j++) { */
-        /*                     newScores[j] = _loadedScore[j]; */
-        /*                     newNames[j] = _loadedName[j]; */
-        /*                 } */
-
-        /*                 _loadedScore = newScores; */
-        /*                 _loadedName = newNames; */
-
-        /*                 isUpdatedScore = true; */
-        /*             } */
-        /*         } */
-        /*     } */
-        /* } */
     }
 
     void _SaveLeaderboard()
