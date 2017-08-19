@@ -62,11 +62,26 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     Slider sliderBgmLevel;
+
+    [SerializeField]
+    GameObject transitionOutroAnim;
+
+    [SerializeField]
+    GameObject gamePlayPanel;
     
 
     Image _currentPerformanceState;
     Text[] _txtLeaderboards;
 
+
+    public void PlayOutro()
+    {
+        if (transitionOutroAnim && gamePlayPanel) {
+            transitionOutroAnim.SetActive(true);
+            transitionOutroAnim.gameObject.GetComponent<Animator>().SetBool("IsOutro", true);
+            StartCoroutine("_PlayOutroCallback");
+        }
+    }
 
     public void ApplyCurrentSoundLevel()
     {
@@ -225,5 +240,12 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(hideDelay);
         _currentPerformanceState.enabled = false;
         txtPerfectStack.gameObject.SetActive(false);
+    }
+
+    IEnumerator _PlayOutroCallback()
+    {
+        yield return new WaitForSeconds(1.5f);
+        transitionOutroAnim.SetActive(false);
+        gamePlayPanel.SetActive(true);
     }
 }
