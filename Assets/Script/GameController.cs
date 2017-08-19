@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     Text txtPlayerName;
 
+    [SerializeField]
+    Text txtPlaceHolderField;
+
 
     public bool IsGameInit { get { return _isGameInit; } }
     public bool IsGameStart { get { return _isGameStart; } }
@@ -63,6 +66,7 @@ public class GameController : MonoBehaviour
     {
         if (txtPlayerName) {
             var playerName = (txtPlayerName.text == "") ? "Anonymous" : txtPlayerName.text;
+            txtPlaceHolderField.text = playerName;
             saveManager.UpdateLeaderboard(playerName, player.Score);
         }
     }

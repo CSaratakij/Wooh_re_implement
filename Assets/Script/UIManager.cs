@@ -165,13 +165,6 @@ public class UIManager : MonoBehaviour
         if (_gameController.IsGameStart && _gameController.IsGameOver) {
             UpdateLeaderBoard();
         }
-
-        if (_gameController.IsGameStart && _gameController.IsGameOver) {
-            if (txtPlayerName && btnRestart && btnLeaderboardInGameOverUI) {
-                btnRestart.enabled = txtPlayerName.text != "";
-                btnLeaderboardInGameOverUI.enabled = txtPlayerName.text != "";
-            }
-        }
     }
 
 
@@ -247,5 +240,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         transitionOutroAnim.SetActive(false);
         gamePlayPanel.SetActive(true);
+        _gameController.GameInit();
     }
 }
