@@ -34,6 +34,12 @@ public class CrowdController : MonoBehaviour
     GameObject[] _specialCrowds;
 
 
+    public GameObject[][] CrowdObjects { get { return _crowdObjects; } }
+    public GameObject[] SpecialCrowdObjects { get { return _specialCrowds; } }
+    public Vector2[] SpecialCrowdPos { get { return specialCrowdPos; } }
+    public Vector2[] HideSpritePos { get { return hideSpritePos; } }
+
+
 	void Awake()
     {
         _Initialize();
@@ -45,11 +51,6 @@ public class CrowdController : MonoBehaviour
             obj.GetComponent<SpecialCrowd>().Blame();
         }
     }
-
-	void Update()
-    {
-        _HandleWavePattern();
-	}
 
     void _Initialize()
     {
@@ -106,10 +107,5 @@ public class CrowdController : MonoBehaviour
             currentPos.y -= intervalOfSeat.y;
             currentOrder += 1;
         }
-    }
-
-    void _HandleWavePattern()
-    {
-
     }
 }
