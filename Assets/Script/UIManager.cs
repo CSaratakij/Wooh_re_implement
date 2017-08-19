@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    const string SOUND_BGM_KEY = "SOUND_BGM_LEVEL";
+
+
     [SerializeField]
     PlayerController player;
 
@@ -56,11 +59,51 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     Button btnLeaderboardInGameOverUI;
+
+    [SerializeField]
+    Slider sliderBgmLevel;
     
 
     Image _currentPerformanceState;
     Text[] _txtLeaderboards;
 
+
+    public void ApplyCurrentSoundLevel()
+    {
+        if (sliderBgmLevel) {
+            AudioListener.volume = sliderBgmLevel.value;
+        }
+    }
+
+    public void SaveCurrentSoundLevel()
+    {
+        if (sliderBgmLevel) {
+            if (!PlayerPrefs.HasKey(SOUND_BGM_KEY)) {
+                PlayerPrefs.SetFloat(SOUND_BGM_KEY, 1.0f);
+
+            } else {
+                PlayerPrefs.SetFloat(SOUND_BGM_KEY, sliderBgmLevel.value);
+            }
+        }
+
+        PlayerPrefs.Save();
+    }
+
+
+    void _LoadCurrentSoundLevel()
+    {
+        if (!PlayerPrefs.HasKey(SOUND_BGM_KEY)) {
+            PlayerPrefs.SetFloat(SOUND_BGM_KEY, 1.0f);
+        }
+        var currentSoundLevel = PlayerPrefs.GetFloat(SOUND_BGM_KEY);
+        AudioListener.volume = currentSoundLevel;
+        sliderBgmLevel.value = currentSoundLevel;
+    }
+
+    void Awake()
+    {
+        _LoadCurrentSoundLevel();
+    }
 
     void Start()
     {
